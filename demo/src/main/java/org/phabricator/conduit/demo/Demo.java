@@ -15,7 +15,13 @@ package org.phabricator.conduit.demo;
 
 import java.awt.Toolkit;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import org.kohsuke.args4j.CmdLineException;
@@ -144,7 +150,23 @@ public class Demo {
 
 			logStart("maniphest.info"); // ------------------------------------------
 
-			stdout.println("Fetching info about task T" + taskId + "...");
+			// String ownerPhid = "PHID-USER-pn7h6mse3qmpoqhiulxk";
+			// String viewPolicy = null;
+			// String editPolicy = null;
+			// List<String> ccPhids = new LinkedList<>();
+			// Integer priority = 1;
+			// List<String> projectPhids = new LinkedList<>();
+			// projectPhids.add("PHID-PROJ-pjf5qp7inoktsnmn4tbk");
+			//
+			// Map<String, String> auxiliary = null;
+			//
+			// ManiphestModule.CreateTaskResult ctr =
+			// conduit.getManiphestModule().createTask("testTask",
+			// "This is a testdescription", ownerPhid, viewPolicy, editPolicy,
+			// ccPhids, priority, projectPhids,
+			// auxiliary);
+			//
+			// stdout.println("Fetching info about task T" + taskId + "...");
 
 			ManiphestModule.InfoResult infoResult = conduit.getManiphestModule().info(taskId);
 
@@ -156,19 +178,51 @@ public class Demo {
 			stdout.println("  * uri: " + infoResult.getUri());
 			stdout.println("(Much more information is available. See the " + "InfoResult class)");
 
+			System.out.println(infoResult.getAuthorPHID());
+			System.out.println(infoResult.getOwnerPHID());
+			System.out.println(infoResult.getPriority());
+			System.out.println(infoResult.getProjectPHIDs().get(0));
+
+			System.out.println("DEPENDENT");
+			for (String x : infoResult.getDependsOnTaskPHIDs()) {
+				System.out.println(x);
+			}
+
+			for (String key : infoResult.getAuxiliary().keySet()) {
+				System.out.println(key + ":" + infoResult.getAuxiliary().get(key));
+			}
+
 			logStart("maniphest.update"); // ------------------------------------------
 
-			if (askPermission("May I add a comment saying 'Test comment' to task T" + taskId + "?")) {
-				stdout.println("Adding 'Test comment' to task T" + taskId + "...");
-				final ManiphestModule.UpdateResult updateResult = conduit.getManiphestModule().update(taskId, null,
-						null, null, null, null, null, null, null, null, null, null, "Test comment");
-				stdout.println("Done.");
+			// if (askPermission("May I add a comment saying 'Test comment' to
+			// task T" + taskId + "?")) {
+			// stdout.println("Adding 'Test comment' to task T" + taskId +
+			// "...");
+			// final ManiphestModule.UpdateResult updateResult =
+			// conduit.getManiphestModule().update(taskId, null,
+			// null, null, null, null, null, null, null, null, null, null, "Test
+			// comment");
+			// stdout.println("Done.");
+			//
+			// stdout.println("Fetching fresh info about task T" + taskId +
+			// "...");
+			// infoResult = conduit.getManiphestModule().info(taskId);
+			// stdout.println("New task modification date is "
+			// + new Date(Long.parseLong(updateResult.getDateModified()) *
+			// 1000));
+			// }
 
-				stdout.println("Fetching fresh info about task T" + taskId + "...");
-				infoResult = conduit.getManiphestModule().info(taskId);
-				stdout.println("New task modification date is "
-						+ new Date(Long.parseLong(updateResult.getDateModified()) * 1000));
-			}
+			List<ManiphestModule.AbstractEditTransaction> transactions = new LinkedList<>();
+
+			transactions.add(new ManiphestModule.ParentTransaction("PHID-TASK-ufdkh2ltnlryy7pjkfz4"));
+			transactions.add(new ManiphestModule.TitleTransaction("MyTitle"));
+			transactions.add(new ManiphestModule.DescriptionTransaction("MyDescription"));
+			transactions.add(new ManiphestModule.OwnerTransaction("PHID-USER-pn7h6mse3qmpoqhiulxk"));
+			transactions.add(new ManiphestModule.PriorityTransaction(50));
+			transactions.add(new ManiphestModule.ProjectsSetTransaction(
+					Arrays.asList(new String[] { "PHID-PROJ-pjf5qp7inoktsnmn4tbk" })));
+
+			conduit.getManiphestModule().editTask(transactions);
 
 			logEnd(); // ------------------------------------------------------------
 		} catch (Exception e) {

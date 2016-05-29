@@ -2,15 +2,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>at.quelltextlich.phabricator</groupId>
-        <artifactId>phabricator-conduit-parent</artifactId>
+        <groupId>org.phabricator</groupId>
+        <artifactId>conduit-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <name>Phabricator Conduit Java Connector</name>
     <description>Java connector to Phabricator's conduit</description>
 
-    <artifactId>phabricator-conduit</artifactId>
+    <artifactId>conduit</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>

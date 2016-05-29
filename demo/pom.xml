@@ -2,8 +2,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>at.quelltextlich.phabricator</groupId>
-        <artifactId>phabricator-conduit-parent</artifactId>
+        <groupId>org.phabricator</groupId>
+        <artifactId>conduit-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -15,8 +15,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>at.quelltextlich.phabricator</groupId>
-            <artifactId>phabricator-conduit</artifactId>
+            <groupId>org.phabricator</groupId>
+            <artifactId>conduit</artifactId>
             <version>${project.version}</version>
         </dependency>
 
