@@ -5,19 +5,20 @@
     <description>Parent project for a Java connector to Phabricator's conduit</description>
     <url>https://github.com/quelltextlich/phabricator-conduit</url>
 
-    <groupId>at.quelltextlich.phabricator</groupId>
-    <artifactId>phabricator-conduit-parent</artifactId>
+    <groupId>org.phabricator</groupId>
+    <artifactId>conduit-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
         <module>conduit</module>
         <module>demo</module>
+        <module>osgi</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <java.version>1.7</java.version>
+        <java.version>1.8</java.version>
 
         <plugin.compiler.version>3.2</plugin.compiler.version>
         <plugin.jar.version>2.4</plugin.jar.version>

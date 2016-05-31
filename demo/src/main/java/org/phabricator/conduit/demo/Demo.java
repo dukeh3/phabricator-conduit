@@ -14,6 +14,8 @@
 package org.phabricator.conduit.demo;
 
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileReader;
 import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,10 +26,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
+
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.OptionHandlerFilter;
+import org.phabricator.conduit.ConduitException;
 import org.phabricator.conduit.raw.Conduit;
 import org.phabricator.conduit.raw.ConduitFactory;
 import org.phabricator.conduit.raw.ConduitModule;
@@ -63,6 +70,12 @@ public class Demo {
 	@Option(name = "--token", usage = "token to use when connecting to " + "the Phabricator instance")
 	private String token = null;
 
+	@Option(name = "--taskfile", usage = "filename of the taskfile")
+	private String taskFileName = null;
+
+	@Option(name = "--teamfile", usage = "filename of the teamfile")
+	private String teamFileName = null;
+
 	PrintStream stdout = System.out;
 	PrintStream stderr = System.err;
 
@@ -87,6 +100,8 @@ public class Demo {
 
 	private final String DASHES = "--------------------------------------"
 			+ "-----------------------------------------";
+
+	private Conduit conduit;
 
 	private void logStart(String phase) {
 		stdout.println();
@@ -115,14 +130,13 @@ public class Demo {
 		return response != null && "yes".equals(response);
 	}
 
+	TeamList team;
+
 	public void run(final String[] args) {
 		parseArgs(args);
 
 		try {
-			// Creating a Conduit instance. This instance is the main entry
-			// point
-			// for the raw bindings.
-			Conduit conduit = token == null ? ConduitFactory.createConduit(url, username, certificate)
+			conduit = token == null ? ConduitFactory.createConduit(url, username, certificate)
 					: ConduitFactory.createConduit(url, token);
 
 			logStart("conduit.ping (anonymous)"); // --------------------------------
@@ -212,23 +226,78 @@ public class Demo {
 			// 1000));
 			// }
 
-			List<ManiphestModule.AbstractEditTransaction> transactions = new LinkedList<>();
+			try {
+				JAXBContext carContext = JAXBContext.newInstance(Task.class);
+				Unmarshaller carMarshaller = carContext.createUnmarshaller();
+				Task unmarshal = (Task) carMarshaller.unmarshal(new FileReader(new File(taskFileName)));
 
-			transactions.add(new ManiphestModule.ParentTransaction("PHID-TASK-ufdkh2ltnlryy7pjkfz4"));
-			transactions.add(new ManiphestModule.TitleTransaction("MyTitle"));
-			transactions.add(new ManiphestModule.DescriptionTransaction("MyDescription"));
-			transactions.add(new ManiphestModule.OwnerTransaction("PHID-USER-pn7h6mse3qmpoqhiulxk"));
-			transactions.add(new ManiphestModule.PriorityTransaction(50));
-			transactions.add(new ManiphestModule.ProjectsSetTransaction(
-					Arrays.asList(new String[] { "PHID-PROJ-pjf5qp7inoktsnmn4tbk" })));
+				Unmarshaller teamUnMarshaller = JAXBContext.newInstance(Task.class).createUnmarshaller();
+				team = (TeamList) teamUnMarshaller.unmarshal(new FileReader(new File(teamFileName)));
 
-			conduit.getManiphestModule().editTask(transactions);
+				rec(unmarshal, null);
+
+			} catch (JAXBException e) {
+				throw new RuntimeException(e);
+			}
+
+			// List<ManiphestModule.AbstractEditTransaction> transactions = new
+			// LinkedList<>();
+			//
+			// transactions.add(new
+			// ManiphestModule.ParentTransaction("PHID-TASK-ufdkh2ltnlryy7pjkfz4"));
+			// transactions.add(new
+			// ManiphestModule.TitleTransaction("MyTitle"));
+			// transactions.add(new
+			// ManiphestModule.DescriptionTransaction("MyDescription"));
+			// transactions.add(new
+			// ManiphestModule.OwnerTransaction("PHID-USER-pn7h6mse3qmpoqhiulxk"));
+			// transactions.add(new ManiphestModule.PriorityTransaction(50));
+			// transactions.add(new ManiphestModule.ProjectsSetTransaction(
+			// Arrays.asList(new String[] { "PHID-PROJ-pjf5qp7inoktsnmn4tbk"
+			// })));
+			//
+			// conduit.getManiphestModule().editTask(transactions);
 
 			logEnd(); // ------------------------------------------------------------
 		} catch (Exception e) {
 			stderr.println("Demo failed: " + e);
 			e.printStackTrace(stderr);
 			System.exit(1);
+		}
+	}
+
+	@Option(name = "--priority", usage = "The prio")
+	int priority = 50;
+	
+	@Option(name = "--projid", usage = "the projid")
+	String projId = null; 
+//	"PHID-PROJ-pjf5qp7inoktsnmn4tbk";
+
+	void rec(Task t, String p) throws ConduitException {
+		List<ManiphestModule.AbstractEditTransaction> transactions = new LinkedList<>();
+
+		if (p != null)
+			transactions.add(new ManiphestModule.ParentTransaction(p));
+
+		String owner = t.cls != null ? team.members.get(t.cls) : null;
+		// "PHID-USER-pn7h6mse3qmpoqhiulxk";
+
+		transactions.add(new ManiphestModule.TitleTransaction(t.title));
+		transactions.add(new ManiphestModule.DescriptionTransaction(t.description));
+
+		if (owner != null)
+			transactions.add(new ManiphestModule.OwnerTransaction(owner));
+
+		transactions.add(new ManiphestModule.PriorityTransaction(priority));
+
+		if (projId != null)
+			transactions.add(new ManiphestModule.ProjectsSetTransaction(Arrays.asList(new String[] { projId })));
+
+		 conduit.getManiphestModule().editTask(transactions);
+		String res = "";
+
+		for (Task st : t.subTasks) {
+			rec(st, res);
 		}
 	}
 
