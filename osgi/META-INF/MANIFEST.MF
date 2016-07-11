@@ -1,37 +1,24 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1452050577248
-Build-Jdk: 1.8.0_60
+Bnd-LastModified: 1468102390734
+Build-Jdk: 1.8.0_91
 Built-By: rene
 Bundle-Activator: org.phabricator.internal.ExampleActivator
-Bundle-ClassPath: .,target/dependency/junit-3.8.1.jar,target/dependency/
- plexus-utils-3.0.22.jar,target/dependency/phabricator-conduit-0.0.1-SNA
- PSHOT.jar
 Bundle-Description: Parent project for a Java connector to Phabricator's
   conduit
 Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
 Bundle-ManifestVersion: 2
-Bundle-Name: conduit [org.phabricator]
-Bundle-SymbolicName: conduit
-Bundle-Version: 1.0.0.SNAPSHOT
+Bundle-Name: conduit-osgi [org.phabricator]
+Bundle-SymbolicName: conduit-osgi
+Bundle-Version: 0.0.2.SNAPSHOT
 Created-By: Apache Maven Bundle Plugin
-Embed-Dependency: *;scope=compile|runtime;inline=false
+Embed-Dependency: *;scope=compile|runtime;inline=true
 Embed-Directory: target/dependency
 Embed-StripGroup: true
-Embedded-Artifacts: target/dependency/junit-3.8.1.jar;g="junit";a="junit
- ";v="3.8.1",target/dependency/plexus-utils-3.0.22.jar;g="org.codehaus.p
- lexus";a="plexus-utils";v="3.0.22",target/dependency/phabricator-condui
- t-0.0.1-SNAPSHOT.jar;g="at.quelltextlich.phabricator";a="phabricator-co
- nduit";v="0.0.1-SNAPSHOT"
-Export-Package: org.phabricator.conduit;version="1.0.0.SNAPSHOT",org.pha
- bricator.conduit.bare;version="1.0.0.SNAPSHOT";uses:="com.google.gson,o
- rg.phabricator.conduit",org.phabricator.conduit.raw;version="1.0.0.SNAP
- SHOT";uses:="com.google.gson,org.phabricator.conduit,org.phabricator.co
- nduit.bare"
-Import-Package: com.google.gson;version="[2.3,3)",com.google.gson.annota
- tions;version="[2.3,3)",javax.swing,javax.swing.border,javax.swing.even
- t,javax.swing.text,javax.swing.tree,javax.xml.bind,org.apache.http,org.
- apache.http.client.methods,org.apache.http.entity,org.apache.http.impl.
- client,org.apache.http.util,org.phabricator.internal,org.slf4j;version=
- "[1.7,2)"
-Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.7))"
+Embed-Transitive: true
+Export-Package: org.phabricator;version="0.0.2.SNAPSHOT",org.phabricator
+ .conduit;version="0.0.2.SNAPSHOT",org.phabricator.conduit.bare;version=
+ "0.0.2.SNAPSHOT";uses:="org.phabricator.conduit",org.phabricator.condui
+ t.raw;version="0.0.2.SNAPSHOT";uses:="org.phabricator.conduit,org.phabr
+ icator.conduit.bare"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
 Tool: Bnd-2.3.0.201405100607

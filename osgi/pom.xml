@@ -4,17 +4,20 @@
 	<parent>
 		<groupId>org.phabricator</groupId>
 		<artifactId>conduit-parent</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.0.2-SNAPSHOT</version>
 	</parent>
 
 	<properties>
-		<bundle.symbolicName>conduit</bundle.symbolicName>
+		<bundle.symbolicName>conduit-osgi</bundle.symbolicName>
 		<bundle.namespace>org.phabricator</bundle.namespace>
+		<!-- This is black woodoo magic see 
+		https://commons.apache.org/commons-parent-pom.html
+		 -->
+		<Import-Package></Import-Package>
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
 	<artifactId>conduit-osgi</artifactId>
-	<version>1.0-SNAPSHOT</version>
 
 	<name>${bundle.symbolicName} [${bundle.namespace}]</name>
 
@@ -52,9 +55,10 @@
 						<Bundle-Activator>${bundle.namespace}.internal.ExampleActivator</Bundle-Activator>
 						<!-- embed compile/runtime dependencies using path that matches the 
 							copied dependency folder -->
-						<Embed-Dependency>*;scope=compile|runtime;inline=false</Embed-Dependency>
+						<Embed-Dependency>*;scope=compile|runtime;inline=true</Embed-Dependency>
 						<Embed-Directory>target/dependency</Embed-Directory>
 						<Embed-StripGroup>true</Embed-StripGroup>
+						<Embed-Transitive>true</Embed-Transitive>					
 					</instructions>
 				</configuration>
 			</plugin>
@@ -88,23 +92,14 @@
 			<scope>provided</scope>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>compile</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-			<version>3.0.22</version>
-		</dependency>
 
-
+		<!-- <dependency> <groupId>junit</groupId> <artifactId>junit</artifactId> 
+			<scope>compile</scope> <optional>true</optional> </dependency> -->
+		<!-- <dependency> <groupId>org.codehaus.plexus</groupId> <artifactId>plexus-utils</artifactId> 
+			<version>3.0.22</version> </dependency> -->
 		<dependency>
-			<groupId>at.quelltextlich.phabricator</groupId>
-			<artifactId>phabricator-conduit</artifactId>
+			<groupId>org.phabricator</groupId>
+			<artifactId>conduit</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

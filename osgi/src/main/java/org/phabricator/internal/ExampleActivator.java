@@ -1,4 +1,4 @@
-package fenixtest.internal;
+package org.phabricator.internal;
 
 import org.osgi.framework.BundleActivator;
 

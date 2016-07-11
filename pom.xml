@@ -7,7 +7,7 @@
 
     <groupId>org.phabricator</groupId>
     <artifactId>conduit-parent</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -56,7 +56,7 @@
         <tag>HEAD</tag>
     </scm>
 
-    <developers>
+<!--     <developers>
         <developer>
             <name>Christian Aistleitner</name>
             <email>christian@quelltextlich.at</email>
@@ -64,7 +64,7 @@
             <organizationUrl>http://quelltextlich.at/</organizationUrl>
         </developer>
     </developers>
-
+ -->
     <dependencyManagement>
         <dependencies>
             <dependency>
