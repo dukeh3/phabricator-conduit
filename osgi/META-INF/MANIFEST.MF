@@ -1,6 +1,6 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1468102390734
-Build-Jdk: 1.8.0_91
+Bnd-LastModified: 1468917585643
+Build-Jdk: 1.8.0_66
 Built-By: rene
 Bundle-Activator: org.phabricator.internal.ExampleActivator
 Bundle-Description: Parent project for a Java connector to Phabricator's
