@@ -8,7 +8,7 @@ Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
 Bundle-ManifestVersion: 2
 Bundle-Name: conduit-osgi [org.phabricator]
 Bundle-SymbolicName: conduit-osgi
-Bundle-Version: 0.0.2.SNAPSHOT
+Bundle-Version: 0.0.2.qualifier
 Created-By: Apache Maven Bundle Plugin
 Embed-Dependency: *;scope=compile|runtime;inline=true
 Embed-Directory: target/dependency
