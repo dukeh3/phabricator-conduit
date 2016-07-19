@@ -1,8 +1,7 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1468918201669
-Build-Jdk: 1.8.0_66
-Built-By: rene
-Bundle-Activator: org.phabricator.internal.ExampleActivator
+Bnd-LastModified: 1468935467752
+Build-Jdk: 1.8.0_92
+Built-By: emalren
 Bundle-Description: Parent project for a Java connector to Phabricator's
   conduit
 Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt

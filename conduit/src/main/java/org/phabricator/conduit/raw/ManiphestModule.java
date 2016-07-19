@@ -173,8 +173,12 @@ public class ManiphestModule extends Module {
 		return result;
 	}
 
+	public static class ObjectId {
+		public String phid;
+	}
+	
 	public static class EditTaskResult {
-
+		public ObjectId object;
 	}
 
 	/**
