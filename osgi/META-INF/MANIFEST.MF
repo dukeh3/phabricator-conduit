@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1468917585643
+Bnd-LastModified: 1468918201669
 Build-Jdk: 1.8.0_66
 Built-By: rene
 Bundle-Activator: org.phabricator.internal.ExampleActivator
