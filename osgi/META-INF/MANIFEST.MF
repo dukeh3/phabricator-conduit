@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1468935467752
+Bnd-LastModified: 1469011396136
 Build-Jdk: 1.8.0_92
 Built-By: emalren
 Bundle-Description: Parent project for a Java connector to Phabricator's
@@ -8,7 +8,7 @@ Bundle-License: https://www.apache.org/licenses/LICENSE-2.0.txt
 Bundle-ManifestVersion: 2
 Bundle-Name: conduit-osgi [org.phabricator]
 Bundle-SymbolicName: conduit-osgi
-Bundle-Version: 0.0.2.qualifier
+Bundle-Version: 0.0.2.SNAPSHOT
 Created-By: Apache Maven Bundle Plugin
 Embed-Dependency: *;scope=compile|runtime;inline=true
 Embed-Directory: target/dependency
