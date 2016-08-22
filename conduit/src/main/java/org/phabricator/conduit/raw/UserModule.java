@@ -150,8 +150,8 @@ public class UserModule extends Module {
   public static class WhoAmIResult extends UserResult {
     public WhoAmIResult(final String phid, final String userName,
         final String realName, final String image, final String uri,
-        final List<String> roles) {
-      super(phid, userName, realName, image, uri, roles);
+        final List<String> roles, final Map<String, String> auxiliary) {
+      super(phid, userName, realName, image, uri, roles, auxiliary);
     }
   }
 
@@ -162,10 +162,11 @@ public class UserModule extends Module {
     private final String image;
     private final String uri;
     private final List<String> roles;
+	private final Map<String, String> auxiliary;
 
     public UserResult(final String phid, final String userName,
         final String realName, final String image, final String uri,
-        final List<String> roles) {
+        final List<String> roles, final Map<String, String> auxiliary) {
       super();
       this.phid = phid;
       this.userName = userName;
@@ -173,6 +174,7 @@ public class UserModule extends Module {
       this.image = image;
       this.uri = uri;
       this.roles = roles;
+      this.auxiliary = auxiliary;
     }
 
     public String getPhid() {
@@ -198,6 +200,10 @@ public class UserModule extends Module {
     public List<String> getRoles() {
       return roles;
     }
+    
+	public Map<String, String> getAuxiliary() {
+		return auxiliary;
+	}
 
     @Override
     public int hashCode() {

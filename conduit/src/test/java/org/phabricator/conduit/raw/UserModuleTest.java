@@ -18,6 +18,7 @@ import static org.easymock.EasyMock.eq;
 import static org.easymock.EasyMock.expect;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.easymock.Capture;
@@ -131,11 +132,11 @@ public class UserModuleTest extends ModuleTestCase {
     final UserModule.QueryResult expected = new UserModule.QueryResult();
     expected.add(new UserModule.UserResult("PHID-USER-3nphm6xkw2mpyfshq4dq",
         "qchris", "John Doe", "http://www.example.com/image.png",
-        "http://www.example.com/", Arrays.asList("approved", "activated")));
+        "http://www.example.com/", Arrays.asList("approved", "activated"),new HashMap<String, String>()));
     expected.add(new UserModule.UserResult("PHID-USER-3nphm6xkw2mpyfshq4dr",
         "frank.the.tank", "Frank Tank",
         "http://www.example.com/image-tank.png", "http://www.example.com/tank",
-        Arrays.asList("tankified")));
+        Arrays.asList("tankified"),new HashMap<String, String>()));
     assertEquals("Results do not match", expected, result);
   }
 
@@ -167,7 +168,7 @@ public class UserModuleTest extends ModuleTestCase {
     final UserModule.WhoAmIResult expected = new UserModule.WhoAmIResult(
         "PHID-USER-3nphm6xkw2mpyfshq4dq", "qchris", "John Doe",
         "http://www.example.com/image.png", "http://www.example.com/",
-        Arrays.asList("approved", "activated"));
+        Arrays.asList("approved", "activated"),new HashMap<String, String>());
 
     assertEquals("Results do not match", expected, result);
   }

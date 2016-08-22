@@ -75,7 +75,7 @@ public class ProjectModuleTest extends ModuleTestCase {
     final ProjectModule.CreateResult expected = new ProjectModule.CreateResult(
         21, "PHID-TASK-betonxi3333rmlvrqdzr7", "nameFoo", "PHID-PROFILE-FOO",
         "rocket", "red", Arrays.asList("user1", "user2"), Arrays.asList(
-            "slug-foo", "slug-bar"), "1436304454", "1436304469");
+            "slug-foo", "slug-bar"), "1436304454", "1436304469", new HashMap<>());
 
     assertEquals("Results do not match", expected, result);
   }
@@ -172,12 +172,12 @@ public class ProjectModuleTest extends ModuleTestCase {
         new ProjectModule.ProjectResult(21, "PHID-TASK-betonxi3333rmlvrqdzr7",
             "nameFoo", "PHID-PROFILE-FOO", "rocket", "red", Arrays.asList(
                 "user1", "user2"), Arrays.asList("slug-foo", "slug-bar"),
-            "1436304454", "1436304469"));
+            "1436304454", "1436304469", new HashMap<>()));
     expData.put(
         "PHID-TASK-betonxi3333rmlvrqdzr8",
         new ProjectModule.ProjectResult(22, "PHID-TASK-betonxi3333rmlvrqdzr8",
             "nameBar", null, "bike", "yellow", Arrays.asList("user3"), Arrays
-                .asList("baz"), "1436304455", "1436304470"));
+                .asList("baz"), "1436304455", "1436304470", new HashMap<>()));
     final ProjectModule.Cursor expCursor = new ProjectModule.Cursor(3, "18",
         null);
     final ProjectModule.QueryResult expected = new ProjectModule.QueryResult(

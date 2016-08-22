@@ -77,9 +77,9 @@ public class ProjectModule extends Module {
     public CreateResult(final int id, final String phid, final String name,
         final String profileImagePhid, final String icon, final String color,
         final List<String> members, final List<String> slugs,
-        final String dateCreated, final String dateModified) {
+        final String dateCreated, final String dateModified, Map<String, String> auxiliary) {
       super(id, phid, name, profileImagePhid, icon, color, members, slugs,
-          dateCreated, dateModified);
+          dateCreated, dateModified, auxiliary);
     }
   }
 
@@ -95,11 +95,12 @@ public class ProjectModule extends Module {
     private final List<String> slugs;
     private final String dateCreated;
     private final String dateModified;
+    private final Map<String, String> auxiliary;
 
     public ProjectResult(final int id, final String phid, final String name,
         final String profileImagePhid, final String icon, final String color,
         final List<String> members, final List<String> slugs,
-        final String dateCreated, final String dateModified) {
+        final String dateCreated, final String dateModified, Map<String, String> auxiliary) {
       super();
       this.id = id;
       this.phid = phid;
@@ -111,6 +112,7 @@ public class ProjectModule extends Module {
       this.slugs = slugs;
       this.dateCreated = dateCreated;
       this.dateModified = dateModified;
+      this.auxiliary = auxiliary;
     }
 
     public int getId() {
@@ -152,6 +154,10 @@ public class ProjectModule extends Module {
     public String getDateModified() {
       return dateModified;
     }
+    
+	public Map<String, String> getAuxiliary() {
+		return auxiliary;
+	}
 
     @Override
     public int hashCode() {

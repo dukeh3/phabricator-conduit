@@ -41,7 +41,6 @@ public class ManiphestModule extends Module {
 			put("type", "parent");
 			put("value", phid);
 		}
-
 	}
 
 	public static class DescriptionTransaction extends AbstractEditTransaction {
