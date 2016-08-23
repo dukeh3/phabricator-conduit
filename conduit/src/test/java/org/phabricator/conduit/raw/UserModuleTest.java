@@ -132,11 +132,11 @@ public class UserModuleTest extends ModuleTestCase {
     final UserModule.QueryResult expected = new UserModule.QueryResult();
     expected.add(new UserModule.UserResult("PHID-USER-3nphm6xkw2mpyfshq4dq",
         "qchris", "John Doe", "http://www.example.com/image.png",
-        "http://www.example.com/", Arrays.asList("approved", "activated"),new HashMap<String, String>()));
+        "http://www.example.com/", Arrays.asList("approved", "activated"),new HashMap<String, String>(),null));
     expected.add(new UserModule.UserResult("PHID-USER-3nphm6xkw2mpyfshq4dr",
         "frank.the.tank", "Frank Tank",
         "http://www.example.com/image-tank.png", "http://www.example.com/tank",
-        Arrays.asList("tankified"),new HashMap<String, String>()));
+        Arrays.asList("tankified"),new HashMap<String, String>(),null));
     assertEquals("Results do not match", expected, result);
   }
 
@@ -168,7 +168,7 @@ public class UserModuleTest extends ModuleTestCase {
     final UserModule.WhoAmIResult expected = new UserModule.WhoAmIResult(
         "PHID-USER-3nphm6xkw2mpyfshq4dq", "qchris", "John Doe",
         "http://www.example.com/image.png", "http://www.example.com/",
-        Arrays.asList("approved", "activated"),new HashMap<String, String>());
+        Arrays.asList("approved", "activated"),new HashMap<String, String>(),null);
 
     assertEquals("Results do not match", expected, result);
   }
