@@ -163,10 +163,6 @@ public class UserModule extends Module {
 		private final Map<String, String> auxiliary;
 		private final String primaryEmail;
 
-		public String getPrimaryEmail() {
-			return primaryEmail;
-		}
-
 		public UserResult(final String phid, final String userName, final String realName, final String image,
 				final String uri, final List<String> roles, final Map<String, String> auxiliary,
 				final String primaryEmail) {
@@ -179,6 +175,10 @@ public class UserModule extends Module {
 			this.roles = roles;
 			this.auxiliary = auxiliary;
 			this.primaryEmail = primaryEmail;
+		}
+
+		public String getPrimaryEmail() {
+			return primaryEmail;
 		}
 
 		public String getPhid() {
