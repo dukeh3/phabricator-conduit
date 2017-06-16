@@ -1,19 +1,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <name>Phabricator Conduit Java Connector Parent</name>
+    <name>Phabricator Conduit Java Connector</name>
     <description>Parent project for a Java connector to Phabricator's conduit</description>
-    <url>https://github.com/quelltextlich/phabricator-conduit</url>
 
     <groupId>org.phabricator</groupId>
-    <artifactId>conduit-parent</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <artifactId>org.phabricator.conduit</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
-        <module>conduit</module>
-        <module>demo</module>
-        <module>osgi</module>
+        <module>org.phabricator.conduit.core</module>
+        <module>org.phabricator.conduit.demo</module>
+        <module>org.phabricator.conduit.taskapp</module>
     </modules>
 
     <properties>
@@ -49,22 +48,6 @@
         </license>
     </licenses>
 
-    <scm>
-        <connection>scm:git:git://git.quelltextlich.at/phabricator/phabricator-conduit</connection>
-        <developerConnection>scm:git:file:///home/christian/sources/quelltextlich/phabricator-conduit</developerConnection>
-        <url>https://github.com/quelltextlich/phabricator-conduit</url>
-        <tag>HEAD</tag>
-    </scm>
-
-<!--     <developers>
-        <developer>
-            <name>Christian Aistleitner</name>
-            <email>christian@quelltextlich.at</email>
-            <organization>quelltextlich e.U.</organization>
-            <organizationUrl>http://quelltextlich.at/</organizationUrl>
-        </developer>
-    </developers>
- -->
     <dependencyManagement>
         <dependencies>
             <dependency>
